@@ -16,45 +16,56 @@
     <div id="app">
         Message: {{ message }}
 
-        <div class="cart">Cart({{ cart }})</div>
+        <div class="cart">Cart({{ cart.length }})</div>
 
-        <div class="product-container">
-            <div class="product-image">
-                <img v-bind:src="image">
-            </div>
-            <!-- /.product-image -->
+        <product-display :premium="premium" @add-to-cart="updateCart"></product-display>
+        <product-display></product-display>
+        <product-display></product-display>
 
-            <div class="product-info">
-                <h1 :style="fontColor">{{ brand + " " + product }}</h1>
-                <h2 :style="fontColor">{{ title }}</h2>
-                <p v-show="statement"><strong>Inventory</strong></p>
-                <p v-if="inventory > 10">in stock</p>
-                <p v-else-if="inventory <= 10 && inventory > 0">Inventory: {{ inventory }}</p>
-                <p v-else>out of stock</p>
-                <ul>
-                    <li v-for="detail in details">{{ detail }}</li>
-                </ul>
-                <div v-for="variant in variants" :key="variant.key" v-on:mouseover="updateImage(variant.image)"
-                    class="color-circle" :style="{'background-color': variant.color}">
-                    {{ variant.color }}
+
+        <!-- <div class="product-display">
+            <div class="product-container">
+                <div class="product-image">
+                    <img v-bind:src="image">
                 </div>
-                <div v-for="(variant, index) in variants"
-                    @mouseover="updateVariant(index)">
-                    variant id: {{ variant.id }}
+                
+                <div class="product-info">
+                    <h1 :style="fontColor">{{ brand + " " + product }}</h1>
+                    <h2 :style="fontColor">{{ title }}</h2>
+                    <p v-show="statement"><strong>Inventory</strong></p>
+                    <p v-if="inventory > 10">in stock</p>
+                    <p v-else-if="inventory <= 10 && inventory > 0">Inventory: {{ inventory }}</p>
+                    <p v-else>out of stock</p>
+                    <ul>
+                        <li v-for="detail in details">{{ detail }}</li>
+                    </ul>
+                    <div v-for="variant in variants" :key="variant.key" v-on:mouseover="updateImage(variant.image)"
+                        class="color-circle" :style="{'background-color': variant.color}">
+                        {{ variant.color }}
+                    </div>
+                    <div v-for="(variant, index) in variants" @mouseover="updateVariant(index)">
+                        variant id: {{ variant.id }}
+                    </div>
+                    <button class="button" v-on:click="cart += 1" :class="{'disabled-button': !inStock}"
+                        :disabled="!inStock">Add to Cart</button>
+                    <button class="button" @click="addToCart()">加入購物車</button>
                 </div>
-                <button class="button" v-on:click="cart += 1" :class="{'disabled-button': !inStock}" :disabled="!inStock">Add to Cart</button>
-                <button class="button" @click="addToCart()">加入購物車</button>
             </div>
-            <!-- /.product-info -->
+        </div> -->
 
-        </div>
-        <!-- /.product-container -->
+
+
 
     </div>
     <!-- /#app -->
 
     <script src="./login.js"></script>
     <!-- import app -->
+
+    <script src="./components/ProductDisplay.js"></script>
+    <script src="./components/ReviewForm.js"></script>
+    <script src="./components/ReviewList.js"></script>
+    <!-- import components -->
 
     <script>
         // 必須在 src="./login.js" 後面才會作用
